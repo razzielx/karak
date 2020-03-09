@@ -1,3 +1,35 @@
+//All dimensions in mm
+
+//Karak tile size
+tile_size = 45;
+
+/*[ Cross Properties ]*/
+cross_width = 10;
+//Thickness (affects space between tiles)
+cross_thickness = 1;
+//Height above board
+cross_height = 2;
+
+/*[ Board Properties ]*/
+board_width_mm = 190;
+board_height_mm = 230;
+board_thickness = 2;
+
+function getCount(size) = floor((size - notch_height) /
+                                (tile_size + cross_thickness));
+
+notch_width = tile_size;
+notch_height = tile_size / 3;
+
+
+// number of tiles in both directions automatically calculated from desired size
+// in mm
+cross_x_count = getCount(board_width_mm);  // or set to a fixed number
+cross_y_count = getCount(board_height_mm);
+
+board_x_size = cross_x_count * (tile_size + cross_thickness);
+board_y_size = cross_y_count * (tile_size + cross_thickness);
+
 module center_cross(width, thickness, height) {
   translate([ 0, 0, height / 2 ]) {
     union() {
@@ -15,30 +47,6 @@ module notch(width, height, thickness) {
     }
   }
 }
-
-tile_size = 45;
-
-cross_width = 10;
-cross_thickness = 1;
-cross_height = 2;
-
-board_width_mm = 190;
-board_height_mm = 230;
-board_thickness = 2;
-
-notch_width = tile_size;
-notch_height = tile_size / 3;
-
-function getCount(size) = floor((size - notch_height) /
-                                (tile_size + cross_thickness));
-
-// number of tiles in both directions automatically calculated from desired size
-// in mm
-cross_x_count = getCount(board_width_mm);  // or set to a fixed number
-cross_y_count = getCount(board_height_mm);
-
-board_x_size = cross_x_count * (tile_size + cross_thickness);
-board_y_size = cross_y_count * (tile_size + cross_thickness);
 
 
 difference() {
